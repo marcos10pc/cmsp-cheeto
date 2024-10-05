@@ -1,3 +1,10 @@
+# AVISO
+fiz um novo script tecnicamente, um site onde vc coloca ra e senha escolhe o tipo de lição e ele faz tudo 
+se quiser usar 
+# https://seulink.net/Macaraocomsalsixa
+
+vlw :P
+
 # cmsp cheeto
 
 * script fodastico criado por marcos10pc para fazer licao do cmsp automaticamente
