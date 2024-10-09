@@ -18,69 +18,71 @@
     console.log("-- STARTING CMSP CHEETO By marcos10pc --");
 
     function transformJson(jsonOriginal) {
-        let novoJson = {
-            status: "submitted",
-            accessed_on: jsonOriginal.accessed_on,
-            executed_on: jsonOriginal.executed_on,
-            answers: {}
-        };
+    let novoJson = {
+        status: "submitted",
+        accessed_on: jsonOriginal.accessed_on,
+        executed_on: jsonOriginal.executed_on,
+        answers: {}
+    };
 
-        for (let questionId in jsonOriginal.answers) {
-            let question = jsonOriginal.answers[questionId];
-            let taskQuestion = jsonOriginal.task.questions.find(q => q.id === parseInt(questionId));
+    for (let questionId in jsonOriginal.answers) {
+        let question = jsonOriginal.answers[questionId];
+        let taskQuestion = jsonOriginal.task.questions.find(q => q.id === parseInt(questionId));
 
-            if (taskQuestion.type === "order-sentences") {
-                let answer = taskQuestion.options.sentences.map(sentence => sentence.value);
-                novoJson.answers[questionId] = {
-                    question_id: question.question_id,
-                    question_type: taskQuestion.type,
-                    answer: answer
-                };
-            } else if (taskQuestion.type === "fill-words") {
-                let pre_anwser = taskQuestion.options
-                let anwser = pre_anwser.phrase.map(item => item.value);
-                //console.log(`[DEBUG] ${JSON.stringify(anwser)}`)
-                novoJson.answers[questionId] = {
-                    question_id: question.question_id,
-                    question_type: taskQuestion.type,
-                    answer: anwser
-                };
+        if (taskQuestion.type === "order-sentences") {
+            let answer = taskQuestion.options.sentences.map(sentence => sentence.value);
+            novoJson.answers[questionId] = {
+                question_id: question.question_id,
+                question_type: taskQuestion.type,
+                answer: answer
+            };
+        } else if (taskQuestion.type === "fill-words") {
+            let pre_answer = taskQuestion.options;
+            let answer = pre_answer.phrase
+                .map(item => item.value)
+                .filter((_, index) => index % 2 !== 0); // Pegue apenas os índices ímpares
 
-            } else if (taskQuestion.type === "text_ai") {
-                let answer = taskQuestion.comment.replace(/<\/?p>/g, '');
-                novoJson.answers[questionId] = {
-                    question_id: question.question_id,
-                    question_type: taskQuestion.type,
-                    answer: {
-                        "0": answer
-                    }
-                };
-            } else if (taskQuestion.type === "fill-letters") {
-                let answer = taskQuestion.options.answer;
-                novoJson.answers[questionId] = {
-                    question_id: question.question_id,
-                    question_type: taskQuestion.type,
-                    answer: answer
-                };
-            } else if (taskQuestion.type === "cloud") {
-                let answer = taskQuestion.options.ids;
-                novoJson.answers[questionId] = {
-                    question_id: question.question_id,
-                    question_type: taskQuestion.type,
-                    answer: answer
-                };
-            } else {
-                let answer = Object.fromEntries(
-                    Object.keys(taskQuestion.options).map(optionId => [optionId, taskQuestion.options[optionId].answer])
-                );
-                novoJson.answers[questionId] = {
-                    question_id: question.question_id,
-                    question_type: taskQuestion.type,
-                    answer: answer
-                };
-            }
+            //console.log(`[DEBUG] ${JSON.stringify(answer)}`)
+            novoJson.answers[questionId] = {
+                question_id: question.question_id,
+                question_type: taskQuestion.type,
+                answer: answer
+            };
+        } else if (taskQuestion.type === "text_ai") {
+            let answer = taskQuestion.comment.replace(/<\/?p>/g, '');
+            novoJson.answers[questionId] = {
+                question_id: question.question_id,
+                question_type: taskQuestion.type,
+                answer: {
+                    "0": answer
+                }
+            };
+        } else if (taskQuestion.type === "fill-letters") {
+            let answer = taskQuestion.options.answer;
+            novoJson.answers[questionId] = {
+                question_id: question.question_id,
+                question_type: taskQuestion.type,
+                answer: answer
+            };
+        } else if (taskQuestion.type === "cloud") {
+            let answer = taskQuestion.options.ids;
+            novoJson.answers[questionId] = {
+                question_id: question.question_id,
+                question_type: taskQuestion.type,
+                answer: answer
+            };
+        } else {
+            let answer = Object.fromEntries(
+                Object.keys(taskQuestion.options).map(optionId => [optionId, taskQuestion.options[optionId].answer])
+            );
+            novoJson.answers[questionId] = {
+                question_id: question.question_id,
+                question_type: taskQuestion.type,
+                answer: answer
+            };
         }
-        return novoJson;
+    }
+    return novoJson;
     }
 
     let oldHref = document.location.href;
@@ -136,7 +138,7 @@
 
                             const watermark = document.querySelector('.MuiTypography-root.MuiTypography-body1.css-1exusee');
                             if (watermark) {
-                                watermark.textContent = 'sussy baka amongus';
+                                watermark.textContent = 'made by marcos10pc :P';
                                 watermark.style.fontSize = '70px';
                                 setTimeout(() => {
                                     document.querySelector('button.MuiButtonBase-root.MuiButton-root.MuiLoadingButton-root.MuiButton-contained.MuiButton-containedInherit.MuiButton-sizeMedium.MuiButton-containedSizeMedium.MuiButton-colorInherit.css-prsfpd').click();
