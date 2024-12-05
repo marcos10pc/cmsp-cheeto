@@ -3,5 +3,5 @@ esse script esta aqui apenas para propositos de arquivamento msm ou seila como q
 se quiser usar um funcionando recomendo usar o
 
 # [CMSP Doritus](https://seulink.digital/tHJM8U)
-
+# [Servidor de Suporte](https://discord.gg/platformdestroyer)
 vlw :P
